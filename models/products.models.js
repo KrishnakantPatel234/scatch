@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const productShema = mongoose.connect({
+const productSchema = mongoose.Schema({
     image : {
-        type : String,
+        type : Buffer,
         required : true
     },
     name : {

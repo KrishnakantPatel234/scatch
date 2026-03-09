@@ -3,8 +3,9 @@ import Owner from "../models/owner.models.js";
 
 const router = Router();
 
-router.get("/" , (req , res)=> {
-    res.send("Hey");
+router.get("/admin" , (req , res)=> {
+    let success = req.flash("success");
+    res.render("createproducts" , {success});
 })
 
 if(process.env.NODE_ENV === "development"){
