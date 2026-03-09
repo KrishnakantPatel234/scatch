@@ -5,8 +5,7 @@ import jwt from "jsonwebtoken";
 import { generateToken } from "../utils/generateToken.js";
 
 // controllers
-import { registerUser } from "../controllers/auth.controllers.js";
-import { loginUser } from "../controllers/auth.controllers.js";
+import { logout, registerUser , loginUser } from "../controllers/auth.controllers.js";
 
 const router = Router();
 
@@ -17,5 +16,7 @@ router.get("/" , (req , res)=> {
 router.post("/register" , registerUser );
 
 router.post("/login" , loginUser);
+
+router.get("/logout" , logout);
 
 export default router;

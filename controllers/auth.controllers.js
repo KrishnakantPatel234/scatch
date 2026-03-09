@@ -39,28 +39,35 @@ const loginUser =  async (req , res) =>{
         let user = await User.findOne({email});
 
         if(!user){
-            return res.status(401).send("email or password incorrect.");
+            req.flash("error", "Email or password incorrect");
+            return res.redirect("/");   
         }
 
         let isMatch = await bcrypt.compare(password , user.password);
 
         if(!isMatch){
-            return res.status(401).send("email or password incorrect.")
+             req.flash("error", "Email or password incorrect");
+            return res.redirect("/");
         }
 
         let token = generateToken(user);
 
         res.cookie("token" , token);
-        return res
-            .status(201)
-            .json({message : "User logged In successfully" , user});
+        res.redirect("/shop");
     }catch(err){
-        res.status(500).send(err.message);
+        req.flash("error", "Something went wrong");
+        res.redirect("/");
     }
 
 }
 
+const logout = (req , res) => {
+    res.cookie("token" , "");
+    res.redirect("/");
+}
+
 export {
     registerUser,
-    loginUser
+    loginUser,
+    logout
 }
